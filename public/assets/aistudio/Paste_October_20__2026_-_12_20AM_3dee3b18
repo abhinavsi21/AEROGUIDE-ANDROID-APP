@@ -1,0 +1,979 @@
+# AEROGUIDE — ULTRA-PREMIUM MOBILE APP REDESIGN & RESPONSIVE ENGINEERING AUDIT
+
+## Product identity
+
+**Product:** AeroGuide  
+**Full name:** Personalized Passenger Flight Intelligence & Airport Navigation System  
+**Team:** Cloud Crew  
+**Tagline:** Your Flight. Your Gate. Your Way.  
+**Primary airport:** Manohar International Airport (GOX), Mopa, Goa, India.
+
+## 1. THE PROBLEM — READ CAREFULLY
+
+The current app has working functionality, but the visual quality, alignment, typography, spacing, responsiveness, and mobile layout are not at the standard expected from a premium aviation application.
+
+I have provided screenshots of the current Android app, including:
+
+- Home dashboard.
+- Flight Radar.
+- Navigation.
+- Operational Alerts.
+- Profile and preferences.
+
+Study the screenshots and inspect the actual source code before making changes.
+
+The current output is NOT acceptable as the final design.
+
+Problems visible in the screenshots include:
+
+- Header controls are crowded and compete for attention.
+- The brand area, flight badge, theme toggle, Demo control, assistant button, and notifications do not form a balanced header.
+- Several text labels wrap awkwardly or appear clipped.
+- The radar screen has severe horizontal overflow.
+- The radar title and subtitle do not fit the available viewport.
+- The vertical “SIMULATED DATA” indicator is rendered as narrow, broken, stacked text.
+- Filter chips extend beyond the viewport without a polished interaction.
+- The radar map and aircraft information need better proportions.
+- The navigation screen contains empty-looking controls and poorly balanced cards.
+- Route instructions and waypoints lack consistent visual hierarchy.
+- Some buttons are excessively large, visually heavy, or poorly balanced.
+- Border radii, borders, and card outlines are inconsistent.
+- Text sizes, line heights, spacing, and icon sizes lack a consistent design system.
+- The Alerts screen has too much unused visual space and weak content hierarchy.
+- The Profile screen is visually heavy and still displays “Supabase Authenticated,” despite the Firebase migration.
+- The theme toggle, demo control, and assistant controls take too much space on mobile.
+- Several areas feel like a collection of components rather than a cohesive product.
+
+Do not merely change the colours.
+
+**Rebuild the visual system and responsive layout while preserving the application's working functionality and architecture.**
+
+The desired result should feel like a premium travel and aviation product designed by an experienced product-design and frontend engineering team.
+
+---
+
+# 2. NON-NEGOTIABLE RULES
+
+1. Inspect the repository before editing.
+2. Preserve the existing React/Vite architecture and working Android implementation.
+3. Do not rebuild the app from scratch.
+4. Do not remove Firebase or reintroduce Supabase.
+5. Do not reintroduce Capacitor or the old iOS setup.
+6. Do not remove the AIEM competition demonstration.
+7. Do not replace working features with static mock screens.
+8. Do not implement a visual-only redesign that breaks buttons or application state.
+9. Do not create a second independent state system for the same feature.
+10. Do not use arbitrary CSS patches without understanding the existing styles.
+11. Do not hide overflow simply to conceal broken layouts.
+12. Do not claim the radar works on every phone unless responsive tests have actually been performed.
+13. Do not invent live airport or aircraft data.
+14. Do not hardcode a passenger name or email.
+15. Do not use the word “LIVE” for simulated radar data.
+16. Do not claim email verification when using anonymous authentication.
+17. Do not finish with a report alone. Implement, build, test, and fix the actual application.
+
+Use the existing screenshots as a baseline for identifying regressions and improvements.
+
+---
+
+# 3. DESIGN DIRECTION — PREMIUM AVIATION TECHNOLOGY
+
+Create a distinctive AeroGuide visual identity combining:
+
+- Apple's precision and restraint.
+- Linear's information hierarchy.
+- Premium airline-app usability.
+- Modern airport operations software.
+- High-quality travel-product typography.
+- Clean, editorial spacing.
+
+The app should feel elegant, calm, trustworthy, precise, and effortless to use.
+
+Avoid:
+
+- Cheap-looking default buttons.
+- Excessive pills and capsule controls.
+- Giant rounded rectangles everywhere.
+- Thick borders around every card.
+- Random gradients.
+- Excessive shadows.
+- Excessive glassmorphism.
+- Cyberpunk or gaming visuals.
+- Neon colours.
+- Oversized decorative icons.
+- Tiny unreadable secondary text.
+- Dense control bars.
+- Inconsistent spacing.
+- Unnecessary animations.
+- Desktop layouts squeezed onto mobile screens.
+
+Use visual restraint. Every component must have a clear purpose.
+
+## Colour system
+
+Use the existing AeroGuide identity as the foundation.
+
+Primary navy: `#071426`  
+Secondary navy: `#0B1F38`  
+Aviation blue: `#2F80ED`  
+Sky blue: `#39BDF8`  
+Success: `#20C77A`  
+Warning: `#FF9F43`  
+Critical: `#EF4444`  
+Light background: `#F6F8FB`  
+Primary light text: `#172033`
+
+Implement coherent semantic tokens for both light and dark themes.
+
+Do not hardcode different colours independently in every component.
+
+Use CSS variables or the current theme architecture, whichever best fits the existing project.
+
+## Typography
+
+Use Inter if it is already installed or can be integrated cleanly. Otherwise use a high-quality system font stack.
+
+Define a consistent type scale for:
+
+- Screen titles.
+- Section headings.
+- Card titles.
+- Flight numbers.
+- Gate numbers.
+- Body text.
+- Supporting text.
+- Captions.
+- Status labels.
+- Buttons.
+
+Use controlled font weights, line heights, and letter spacing.
+
+Do not make all headings bold or all text oversized.
+
+Flight number, gate number, ETA, and critical status should be prominent without overwhelming the rest of the screen.
+
+Prevent unintended word wrapping in flight codes, numeric values, status badges, and important button labels.
+
+---
+
+# 4. BUILD A REAL RESPONSIVE DESIGN SYSTEM
+
+Create or refine a shared design system containing:
+
+- Colour tokens.
+- Typography tokens.
+- Spacing scale.
+- Border-radius scale.
+- Elevation and shadow tokens.
+- Button variants.
+- Input styles.
+- Status badges.
+- Card variants.
+- Icon sizing.
+- Responsive container rules.
+- Consistent focus, pressed, disabled, and loading states.
+
+Use predictable spacing based on a 4px or 8px grid.
+
+Recommended spacing tokens:
+
+- 4px.
+- 8px.
+- 12px.
+- 16px.
+- 20px.
+- 24px.
+- 32px.
+- 40px.
+- 48px.
+
+Use these consistently instead of arbitrary margins throughout the application.
+
+## Layout requirements
+
+The application must work at:
+
+- 320px viewport width.
+- 360px.
+- 375px.
+- 390px.
+- 412px.
+- 430px.
+- 600px.
+- 768px.
+- 1024px.
+- 1440px.
+
+Support portrait and landscape where practical.
+
+The app must never require horizontal page scrolling for ordinary screens.
+
+Do not fix overflow by applying `overflow-x: hidden` to the entire application without identifying and correcting the element causing the overflow.
+
+Use appropriate `min-width: 0`, responsive flex/grid sizing, text wrapping, and component-level overflow handling.
+
+Long names and emails must not break the layout.
+
+Use `clamp()` only where it produces sensible, controlled scaling.
+
+Respect mobile safe areas and the Android status/navigation bars.
+
+---
+
+# 5. REDESIGN THE GLOBAL HEADER
+
+The existing header is too crowded.
+
+Redesign it into a compact, balanced, premium app header.
+
+## Mobile header
+
+The top header should contain:
+
+- AeroGuide symbol.
+- Product name.
+- A short secondary label such as GOX Mopa.
+- Theme toggle.
+- Notifications.
+
+The current flight number can be shown as a subtle badge or moved into the flight summary rather than competing with the brand.
+
+The Demo control and assistant shortcut should not force the brand area to shrink.
+
+Move secondary actions into a contextual menu, profile area, or dedicated screen where appropriate.
+
+Use a consistent icon-button system with:
+
+- Equal dimensions.
+- Proper alignment.
+- Accessible labels.
+- Consistent visual treatment.
+- Clear pressed states.
+- Adequate touch targets.
+
+Do not put every available action into the top bar.
+
+## Larger screens
+
+Allow a more spacious header and contextual actions where screen width supports them.
+
+The header must remain visually balanced at every supported width.
+
+---
+
+# 6. HOME DASHBOARD — PASSENGER-FIRST DESIGN
+
+Redesign the dashboard around one question:
+
+**What does this passenger need to do next?**
+
+The most important information should be visible immediately.
+
+## Visual hierarchy
+
+1. Personalized greeting.
+2. Flight summary.
+3. Gate and boarding status.
+4. Distance and walking ETA.
+5. Recommended next action.
+6. Alerts requiring attention.
+7. Secondary tools.
+
+## Flight card
+
+Redesign the current flight card using a structured, aligned layout.
+
+Display:
+
+- Airline.
+- Flight number.
+- Origin.
+- Destination.
+- Terminal.
+- Flight status.
+- Departure time.
+- Boarding time.
+- Gate-close time.
+- Seat, where applicable.
+
+Avoid awkwardly positioned labels or stacked flight-route elements.
+
+On narrow screens, stack the origin and destination cleanly if required.
+
+Do not force the entire route and all flight metrics into a single row.
+
+Keep important information readable at 320px width.
+
+## Gate card
+
+Display the destination gate in a clear, structured panel.
+
+For the initial demo:
+
+- Gate 24.
+- Terminal T1.
+- 650m.
+- 8-minute walk.
+- Current simulated location: Food Court.
+
+Provide one clear primary action:
+
+**Navigate to Gate 24**
+
+Use appropriate urgency messaging based on the existing time-intelligence logic.
+
+The gate card must not feel like a second flight card with duplicated information.
+
+## Action intelligence
+
+Create a refined recommendation panel with concise wording.
+
+Example:
+
+“Gate 24 is 650m away. Allow approximately 8 minutes to walk.”
+
+Use green, orange, or red states according to the actual urgency logic. Do not always use green when a passenger is at risk of missing boarding.
+
+---
+
+# 7. FLIGHT RADAR — CRITICAL RESPONSIVENESS FIX
+
+The current radar is the most obvious layout failure.
+
+It must be redesigned and tested carefully.
+
+The screenshots show that:
+
+- The title exceeds the available width.
+- The subtitle is clipped.
+- The simulated-data badge breaks into narrow vertical lines.
+- Filter chips overflow.
+- The radar page does not fit the phone viewport.
+- The map and details do not have a controlled responsive layout.
+
+Investigate the actual cause in the DOM/CSS and fix the component structure.
+
+## Radar screen layout
+
+Use this hierarchy:
+
+1. Compact page header.
+2. Clear DEMO RADAR status badge.
+3. Short explanatory subtitle.
+4. Search input.
+5. Filter controls.
+6. Large responsive radar viewport.
+7. Selected-aircraft information panel.
+8. Optional aircraft list or expandable details.
+
+The title should wrap naturally or scale within a controlled limit.
+
+Example title:
+
+“Flight Radar”
+
+Supporting text:
+
+“Simulated airspace around GOX Mopa.”
+
+Badge:
+
+“SIMULATED DATA”
+
+Do not render the badge as vertical text.
+
+## Filter controls
+
+At small widths, use one of these approaches:
+
+- A horizontally scrollable chip row contained within the filter component.
+- A compact dropdown.
+- A filter sheet.
+- A two-row responsive filter layout.
+
+Choose the most usable solution for the current implementation.
+
+If horizontal scrolling is used for chips, it must not cause the entire page to overflow.
+
+Keep selected filters visually obvious.
+
+## Radar map
+
+The map must:
+
+- Fit the container width.
+- Have a controlled aspect ratio.
+- Preserve the map's intended geometry.
+- Scale without clipping the aircraft.
+- Keep airport labels legible.
+- Support touch selection.
+- Support zoom and pan where implemented.
+- Keep the selected aircraft visible.
+- Avoid overlapping critical controls.
+- Work in portrait and landscape.
+
+If the radar uses SVG, inspect the `viewBox`, width, height, and preserve-aspect-ratio behavior.
+
+If it uses Canvas, inspect resize handling and device pixel ratio.
+
+If it uses Leaflet or another map library, inspect its container dimensions and resize invalidation behavior.
+
+Do not guess the implementation. Inspect the actual code first.
+
+## Aircraft selection
+
+The selected-aircraft panel should be structured and compact.
+
+For AI 1234, display:
+
+- Air India.
+- Mumbai → Goa.
+- Approaching GOX.
+- Altitude: 32,000 ft.
+- Speed: 450 kt.
+- Heading: 135°.
+- Demo distance: 42 km.
+
+Use aligned metrics rather than squeezing four columns into narrow mobile cards.
+
+On smaller screens, use a two-column metric grid or an appropriate stacked layout.
+
+## Radar state
+
+Preserve the existing 16 simulated aircraft, or the actual current count if the project already contains more.
+
+Keep the demo flight AI 1234 selectable.
+
+Use deterministic, coherent simulated data.
+
+Do not label this radar “LIVE.”
+
+Display a clear disclaimer that aircraft positions and telemetry are simulated.
+
+---
+
+# 8. INVESTIGATE WHY RADAR DOES NOT OPEN ON DIFFERENT PHONES
+
+This is a required engineering task, not an optional visual improvement.
+
+The Flight Radar is reportedly failing to open correctly on different phones.
+
+Inspect:
+
+- Route registration.
+- Navigation button handlers.
+- Conditional rendering.
+- Screen component imports.
+- Runtime exceptions.
+- State initialization.
+- Firebase-dependent rendering.
+- Browser console errors.
+- Android WebView compatibility, if the app runs in a WebView.
+- CSS viewport units.
+- Fixed and sticky positioning.
+- Header and bottom navigation offsets.
+- SVG or Canvas sizing.
+- Unsupported browser APIs.
+- Touch event handlers.
+- Resize observers.
+- Map-library container sizing.
+- Overflow and stacking contexts.
+- Lazy-loaded component failures.
+- Missing dependencies.
+- Device-specific viewport behaviour.
+
+Do not assume this is only a CSS issue.
+
+The screen must open successfully from the bottom navigation on all supported viewport sizes.
+
+It must also open when launched from relevant chatbot shortcuts or dashboard actions.
+
+## Navigation requirements
+
+- Tapping Radar opens the correct screen.
+- The active navigation item updates.
+- Back navigation works.
+- Switching tabs does not leave a blank screen.
+- The selected aircraft remains selected where appropriate.
+- Errors are handled gracefully.
+- The map resizes when the viewport changes.
+- The screen does not remain stuck in a loading state.
+
+If actual physical devices are unavailable, run the available browser/device-emulation tests and state honestly which physical devices were not tested.
+
+---
+
+# 9. NAVIGATION MAP — REBUILD THE VISUAL PRESENTATION
+
+The current navigation page has an oversized route summary, inconsistent card alignment, empty-looking control areas, and an awkward relationship between the step card and route waypoints.
+
+Improve the information architecture.
+
+## Navigation screen
+
+The screen should contain:
+
+1. Compact page heading.
+2. Clear Turn-by-Turn / Terminal Map switch.
+3. Destination and route summary.
+4. Large map or route visualization.
+5. Current navigation instruction.
+6. Route progress.
+7. Upcoming waypoints.
+
+The map must be a substantial part of the experience rather than an afterthought.
+
+## Route summary
+
+Use a compact layout displaying:
+
+- Destination gate.
+- Distance.
+- Estimated walking time.
+- Starting point.
+- Destination.
+
+Do not waste vertical space with unnecessarily large headings.
+
+## Turn-by-turn instructions
+
+Each step should contain:
+
+- Step number.
+- Instruction.
+- Distance to the next waypoint.
+- A relevant icon.
+- Progress state.
+
+Use a clear active state and completed state.
+
+Buttons such as Next Step, Previous Step, Recenter, or Start Navigation must have functional behaviour if displayed.
+
+Do not render empty buttons without visible labels or icons.
+
+Do not display placeholder shapes that look like unfinished controls.
+
+## Terminal map
+
+Improve the schematic map's readability and proportions.
+
+Include:
+
+- Passenger location.
+- Selected destination gate.
+- Route line.
+- Waypoints.
+- Food Court.
+- Security.
+- Check-in.
+- Gates 20–26.
+- Gate 31.
+
+Use a coherent legend and adequate contrast.
+
+The map must remain usable in dark and light themes.
+
+Clearly indicate that it is a prototype schematic and that precise indoor positioning is not implemented.
+
+## Gate-change state
+
+Before gate change:
+
+- Gate 24.
+- 650m.
+- 8 minutes.
+
+After gate change:
+
+- Gate 31.
+- 850m.
+- 11 minutes.
+
+The route itself must update, not just the text.
+
+Use the same central state as the dashboard, alerts, journey, boarding-pass demo, and chatbot.
+
+---
+
+# 10. ALERTS — CLEAR, ACTIONABLE, PREMIUM
+
+The current Alerts screen has large amounts of unused space and inconsistent hierarchy.
+
+Improve it using a clean operational feed.
+
+## Header
+
+Display:
+
+- Operational Alerts.
+- Unread count.
+- Mark all as read.
+
+Keep actions aligned without crowding the title.
+
+## Filters
+
+Provide compact filters for:
+
+- All.
+- Unread.
+- Urgent.
+
+The selected filter must be obvious.
+
+Avoid oversized pills.
+
+## Alert cards
+
+Each alert should include:
+
+- Relevant icon.
+- Short title.
+- Timestamp or simulated event time.
+- Concise message.
+- Read/unread state.
+- Priority when applicable.
+- Optional relevant action.
+
+Use subtle backgrounds and borders rather than outlining every card heavily.
+
+The boarding alert, gate-change alert, and final-call alert should reflect the current simulation state.
+
+Do not show a gate-24 boarding message after the app has moved to gate 31 unless it is explicitly historical.
+
+Mark-as-read actions must update the actual state.
+
+---
+
+# 11. PROFILE — CLEAN ACCOUNT AND PREFERENCES EXPERIENCE
+
+The Profile screen currently feels visually heavy.
+
+Redesign it as a clean, organized account screen.
+
+## Profile header
+
+Display:
+
+- Initials or profile avatar.
+- User's actual display name.
+- Email address.
+- Correct authentication status.
+
+Remove every obsolete “Supabase Authenticated” label and any stale Supabase references.
+
+Use accurate wording such as:
+
+“Demo account · Firebase Anonymous Authentication”
+
+Only show this if it matches the actual active authentication state.
+
+Do not claim that an email is verified unless it is.
+
+## Profile sections
+
+Separate the screen into clear sections:
+
+- Account information.
+- Active booking.
+- Flight preferences.
+- Alert preferences.
+- Appearance.
+- Demo controls.
+- Sign out / Switch passenger.
+
+Avoid putting all controls into one giant card.
+
+## Privacy
+
+Do not request or persist passport information for this prototype unless it is explicitly required.
+
+Do not display sensitive personal information unnecessarily.
+
+Keep passenger data isolated according to the existing Firebase security model.
+
+---
+
+# 12. DARK/LIGHT THEME — FINISH IT PROPERLY
+
+The existing theme toggle must apply consistently throughout the app.
+
+Test every screen in both themes:
+
+- Home.
+- Radar.
+- Navigation.
+- Alerts.
+- Profile.
+- Chatbot.
+- Dialogs.
+- Inputs.
+- Dropdowns.
+- Status badges.
+- Maps.
+- Loading states.
+- Error states.
+
+Ensure contrast and readability.
+
+Do not simply invert colours.
+
+Avoid white text on pale backgrounds, dark text on navy backgrounds, or low-contrast placeholder text.
+
+The radar map, aircraft markers, airport marker, and route line must remain visible in both themes.
+
+Persist the user's preference and restore it on restart.
+
+The theme control must have a clear label and visible selected state.
+
+---
+
+# 13. BUTTONS, INPUTS, AND INTERACTION QUALITY
+
+Create a consistent button system.
+
+Variants:
+
+- Primary.
+- Secondary.
+- Tertiary.
+- Destructive.
+- Icon-only.
+
+Define consistent heights, horizontal padding, icon spacing, border radii, font weight, and pressed states.
+
+Primary actions should stand out without looking oversized.
+
+Avoid using a giant button for every interaction.
+
+For mobile:
+
+- Provide comfortable touch targets.
+- Prevent accidental overlapping.
+- Avoid buttons too close to the Android system navigation area.
+- Keep labels visible at 320px width.
+- Use accessible names for icon-only buttons.
+- Show disabled and loading states correctly.
+
+Search inputs should have aligned icons, appropriate padding, readable text, and a clear focus state.
+
+---
+
+# 14. CHATBOT — PRESERVE FUNCTIONALITY, IMPROVE PRESENTATION
+
+Retain the existing AeroGuide chatbot and its state-aware logic.
+
+Refine:
+
+- Chat panel dimensions.
+- Header.
+- Message bubbles.
+- Quick-action layout.
+- Text input.
+- Send button.
+- Loading indicator.
+- Error messages.
+- Mobile keyboard behaviour.
+- Safe-area handling.
+
+Do not let the chatbot cover the bottom navigation or essential controls.
+
+On mobile, use a properly sized sheet or panel.
+
+Ensure the conversation area scrolls independently.
+
+The chatbot must answer using the current application state.
+
+Before gate change, it must report Gate 24, 650m, 8 minutes.
+
+After gate change, it must report Gate 31, 850m, 11 minutes.
+
+Do not fabricate live data or real indoor positioning.
+
+Keep critical operational answers deterministic where possible.
+
+---
+
+# 15. PERFORMANCE AND ANDROID COMPATIBILITY
+
+Inspect the actual Android build and shared frontend.
+
+Verify:
+
+- No broken layout after orientation changes.
+- No clipped controls behind system bars.
+- No keyboard overlap with form inputs.
+- No excessive rerendering of the radar.
+- No broken SVG or Canvas scaling.
+- No map interaction issues caused by touch handlers.
+- No route failures after navigating between screens.
+- No theme flashing or loss of preference.
+- No console errors caused by missing browser APIs.
+- No accidental use of iOS/Capacitor-only code.
+- No regressions in Firebase integration.
+
+Avoid introducing heavy dependencies solely for visual effects.
+
+Keep animations lightweight and respect reduced-motion preferences where practical.
+
+---
+
+# 16. TESTING — REQUIRED BEFORE COMPLETION
+
+Do not merely say that the application is responsive. Perform the available checks.
+
+## Responsive viewport matrix
+
+Test:
+
+- 320 × 568.
+- 360 × 800.
+- 375 × 812.
+- 390 × 844.
+- 412 × 915.
+- 430 × 932.
+- 768 × 1024.
+- 1024 × 768.
+- 1440 × 900.
+
+For each applicable screen, verify:
+
+- No page-level horizontal overflow.
+- No clipped titles.
+- No broken vertical badges.
+- No truncated critical values.
+- No overlapping controls.
+- No navigation bar overlap.
+- No empty or malformed buttons.
+- No unreadable text.
+- No clipped radar markers.
+- No broken map dimensions.
+- No content hidden behind sticky headers or bottom navigation.
+
+## Screen-by-screen regression tests
+
+### Home
+- Correct dynamic passenger name.
+- Correct flight information.
+- Correct gate.
+- Correct distance and ETA.
+- Primary navigation action works.
+
+### Radar
+- Opens from bottom navigation.
+- Opens from chatbot/dashboard shortcuts.
+- Aircraft render.
+- AI 1234 can be selected.
+- Filters work.
+- Search works.
+- Map scales correctly.
+- Selected aircraft panel fits.
+- No page overflow.
+
+### Navigation
+- Turn-by-turn mode works.
+- Terminal Map mode works.
+- Waypoints are readable.
+- Start navigation works.
+- Route updates after gate change.
+
+### Alerts
+- Filters work.
+- Read/unread state works.
+- Gate-change alert appears.
+- Old operational messages are not presented as current.
+
+### Profile
+- Dynamic user information.
+- Accurate Firebase authentication label.
+- Theme preference works.
+- Logout and switch passenger work.
+
+### Theme
+- Light and dark modes work across all screens.
+- Theme persists after restart.
+
+### Gate-change simulation
+- Initial Gate 24, 650m, 8 minutes.
+- Gate change to Gate 31, 850m, 11 minutes.
+- Dashboard updates.
+- Map route updates.
+- Radar context updates appropriately.
+- Alerts update.
+- Boarding-pass demo updates.
+- Chatbot answers from current state.
+- Reset restores the original scenario.
+
+---
+
+# 17. VISUAL ACCEPTANCE CRITERIA
+
+The redesign is not complete unless all of these are true:
+
+- The header feels balanced rather than crowded.
+- Typography is consistent and premium.
+- The home dashboard has a clear visual hierarchy.
+- The Flight Radar works at narrow mobile widths.
+- “SIMULATED DATA” is displayed horizontally and legibly.
+- Filter chips do not cause page overflow.
+- The radar map fits its container.
+- Aircraft details use an appropriate responsive grid.
+- Navigation controls are functional and visually complete.
+- Route steps are readable and aligned.
+- Alerts are concise and actionable.
+- Profile sections are clearly separated.
+- Firebase status is accurate.
+- Dark and light themes are consistent.
+- Buttons look like part of one product.
+- No critical content is clipped or overlapped.
+- The app remains functional after visual changes.
+- The Android build succeeds.
+
+Do not stop when the first screen looks good. Audit the complete application.
+
+---
+
+# 18. FINAL EXECUTION INSTRUCTIONS
+
+Implement the redesign in the existing repository.
+
+First inspect the components and stylesheet architecture. Then:
+
+1. Establish design tokens.
+2. Fix global layout and responsive containers.
+3. Redesign the header and navigation.
+4. Refine the dashboard.
+5. Fix Flight Radar sizing and navigation failures.
+6. Improve the navigation map.
+7. Refine alerts and profile.
+8. Refine chatbot presentation.
+9. Verify light and dark themes.
+10. Run responsive tests.
+11. Run the production build.
+12. Run the Android build if the environment supports it.
+13. Fix regressions.
+14. Report the exact results.
+
+Provide a final report containing:
+
+- Files modified.
+- Design-system changes.
+- Radar overflow/root-cause fix.
+- Radar route-opening fix.
+- Responsive viewports tested.
+- Screens verified.
+- Theme tests.
+- Firebase integration preserved.
+- AIEM gate-change regression results.
+- Production build result.
+- Android build result.
+- Any remaining issues.
+- Any physical-device testing not performed.
+
+Do not fabricate screenshots, test results, or device compatibility claims.
+
+**FINAL GOAL:** Make AeroGuide look and feel like a premium aviation product that Cloud Crew can confidently demonstrate to competition judges, while preserving all existing working functionality.
+
+AeroGuide  
+Cloud Crew  
+Your Flight. Your Gate. Your Way.

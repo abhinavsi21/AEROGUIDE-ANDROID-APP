@@ -1,0 +1,19 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M8,4h32c2.2,0 4,1.8 4,4v32c0,2.2 -1.8,4 -4,4H8c-2.2,0 -4,-1.8 -4,-4V8c0,-2.2 1.8,-4 4,-4z" />
+    <!-- Air India Red Swirling Wing/Sun Emblem -->
+    <path
+        android:fillColor="#E31837"
+        android:pathData="M11,38 C14,35 22,25 24,14 C27,24 35,32 37,38 C31,37 25,36 11,38 Z" />
+    <path
+        android:fillColor="#F68B1F"
+        android:pathData="M16,36 C19,32 23,26 24,18 C26,26 31,31 33,36 C29,35 23,34 16,36 Z" />
+    <path
+        android:fillColor="#FFD100"
+        android:pathData="M20,34 C22,30 23.5,25 24,20 C24.5,25 27,29 29,34 C26.5,33.5 22.5,33 20,34 Z" />
+</vector>

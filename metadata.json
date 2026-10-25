@@ -1,0 +1,6 @@
+{
+  "name": "AeroGuide",
+  "description": "Personalized Passenger Flight Intelligence & Airport Navigation System",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

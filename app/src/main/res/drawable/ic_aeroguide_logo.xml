@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="128dp"
+    android:height="128dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Deep Blue Squircle / Rounded Background (for standalone display) -->
+    <path
+        android:pathData="M20,6 C10,6 6,10 6,20 L6,88 C6,98 10,102 20,102 L88,102 C98,102 102,98 102,88 L102,20 C102,10 98,6 88,6 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="6"
+                android:startY="6"
+                android:endX="102"
+                android:endY="102"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#071426" />
+                <item android:offset="0.5" android:color="#0B2347" />
+                <item android:offset="1.0" android:color="#030C19" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Outer Squircle Accent Border -->
+    <path
+        android:pathData="M20,6 C10,6 6,10 6,20 L6,88 C6,98 10,102 20,102 L88,102 C98,102 102,98 102,88 L102,20 C102,10 98,6 88,6 Z"
+        android:strokeWidth="1.2"
+        android:strokeColor="#1E3A5F" />
+
+    <!-- Centered emblem group -->
+    <group
+        android:pivotX="54"
+        android:pivotY="54"
+        android:scaleX="0.75"
+        android:scaleY="0.75"
+        android:translateX="-0.5"
+        android:translateY="0.5">
+
+        <!-- 1. Perspective Airport Runway Surface (Base of the "A") -->
+        <path
+            android:pathData="M54,64 L36,86 L72,86 Z"
+            android:fillColor="#0B1C33" />
+
+        <!-- Runway Edge Blue Illumination Glow Lines -->
+        <path
+            android:pathData="M54,64 L36,86"
+            android:strokeWidth="1.2"
+            android:strokeColor="#38BDF8" />
+        <path
+            android:pathData="M54,64 L72,86"
+            android:strokeWidth="1.2"
+            android:strokeColor="#38BDF8" />
+
+        <!-- Runway Edge Light Nodes -->
+        <path android:pathData="M39,83m-1,0a1,1 0 1,1 2,0a1,1 0 1,1 -2,0" android:fillColor="#60A5FA" />
+        <path android:pathData="M44,76m-0.8,0a0.8,0.8 0 1,1 1.6,0a0.8,0.8 0 1,1 -1.6,0" android:fillColor="#38BDF8" />
+        <path android:pathData="M48,70m-0.6,0a0.6,0.6 0 1,1 1.2,0a0.6,0.6 0 1,1 -1.2,0" android:fillColor="#93C5FD" />
+
+        <path android:pathData="M69,83m-1,0a1,1 0 1,1 2,0a1,1 0 1,1 -2,0" android:fillColor="#60A5FA" />
+        <path android:pathData="M64,76m-0.8,0a0.8,0.8 0 1,1 1.6,0a0.8,0.8 0 1,1 -1.6,0" android:fillColor="#38BDF8" />
+        <path android:pathData="M60,70m-0.6,0a0.6,0.6 0 1,1 1.2,0a0.6,0.6 0 1,1 -1.2,0" android:fillColor="#93C5FD" />
+
+        <!-- Runway Centerline Dashes -->
+        <path android:pathData="M53.5,82 L54.5,82 L54.4,85 L53.6,85 Z" android:fillColor="#FFFFFF" />
+        <path android:pathData="M53.6,76 L54.4,76 L54.3,79 L53.7,79 Z" android:fillColor="#FFFFFF" />
+        <path android:pathData="M53.7,71 L54.3,71 L54.2,73.5 L53.8,73.5 Z" android:fillColor="#FFFFFF" />
+        <path android:pathData="M53.8,67 L54.2,67 L54.1,69 L53.9,69 Z" android:fillColor="#BAE6FD" />
+
+        <!-- 2. Airport Terminal Glass Building -->
+        <path
+            android:pathData="M42,66 C42,62 66,62 66,66 L66,67 L42,67 Z"
+            android:fillColor="#1E3A5F" />
+        <path
+            android:pathData="M44,65.5 C46,63 62,63 64,65.5 Z"
+            android:fillColor="#7DD3FC" />
+
+        <!-- Control Tower (Shaft, Observation Cab, Antenna) -->
+        <path android:pathData="M53,55 L55,55 L54.6,63 L53.4,63 Z" android:fillColor="#CBD5E1" />
+        <path android:pathData="M51.5,52.5 L56.5,52.5 L55.5,55 L52.5,55 Z" android:fillColor="#FFFFFF" />
+        <path android:pathData="M52.2,53.2 L55.8,53.2 L55.3,54.5 L52.7,54.5 Z" android:fillColor="#38BDF8" />
+        <path android:pathData="M53.8,48 L54.2,48 L54.2,52.5 L53.8,52.5 Z" android:fillColor="#FFFFFF" />
+        <path android:pathData="M54,48m-0.8,0a0.8,0.8 0 1,1 1.6,0a0.8,0.8 0 1,1 -1.6,0" android:fillColor="#EF4444" />
+
+        <!-- 3. The Iconic 3D "A" Ribbon (Left Leg, Arch, and Right Leg) -->
+        <path
+            android:pathData="M54,24 C57,24 64,30 68,44 L78,74 C80,80 77,85 71,85 C66,85 62,81 60,73 L54,54 Z"
+            android:fillColor="#0D47A1" />
+
+        <path
+            android:pathData="M54,23 C46,23 37,30 32,46 L24,70 C22,76 25,82 31,84 C36,85 41,82 43,76 L52,48 C53,44 55,44 56,48 L62,66 C60,60 59,52 56,43 C54,34 56,23 54,23 Z">
+            <aapt:attr name="android:fillColor">
+                <gradient
+                    android:startX="24"
+                    android:startY="84"
+                    android:endX="62"
+                    android:endY="23"
+                    android:type="linear">
+                    <item android:offset="0.0" android:color="#2563EB" />
+                    <item android:offset="0.5" android:color="#38BDF8" />
+                    <item android:offset="1.0" android:color="#FFFFFF" />
+                </gradient>
+            </aapt:attr>
+        </path>
+
+        <!-- Outer Highlight Rim on the "A" Loop -->
+        <path
+            android:pathData="M24.5,71 C32,46 43,24 54,24 C62,24 71,32 77,74"
+            android:strokeWidth="2.4"
+            android:strokeColor="#FFFFFF"
+            android:strokeLineCap="round" />
+
+        <!-- Inner Crest Wave (3D Fold) -->
+        <path
+            android:pathData="M30,78 C35,60 44,40 54,34 C64,40 70,64 74,80 C74,82 72,84 69,84 C65,84 63,78 61,70 L55,46 C54,42 53,42 52,46 L45,72 C43,78 39,82 34,82 C31,82 29,81 30,78 Z">
+            <aapt:attr name="android:fillColor">
+                <gradient
+                    android:startX="30"
+                    android:startY="80"
+                    android:endX="74"
+                    android:endY="34"
+                    android:type="linear">
+                    <item android:offset="0.0" android:color="#1D4ED8" />
+                    <item android:offset="0.4" android:color="#0EA5E9" />
+                    <item android:offset="0.8" android:color="#38BDF8" />
+                    <item android:offset="1.0" android:color="#E0F2FE" />
+                </gradient>
+            </aapt:attr>
+        </path>
+
+        <!-- 4. Dynamic Jetstream / Contrail Swoop Crossing the "A" -->
+        <path
+            android:pathData="M23,73 C36,65 50,55 66,47 C74,43 81,37 86,31"
+            android:strokeWidth="3.2"
+            android:strokeColor="#38BDF8"
+            android:strokeLineCap="round" />
+        <path
+            android:pathData="M24,72 C37,64 51,54 67,46 C75,42 82,36 86.5,30.5"
+            android:strokeWidth="1.4"
+            android:strokeColor="#FFFFFF"
+            android:strokeLineCap="round" />
+
+        <!-- 5. Soaring Airplane (Climbing Up and Right at ~35 degrees) -->
+        <path
+            android:pathData="M92.5,25.5 C93.2,24.8 93.8,25.2 93.4,26.2 L89.5,33.5 L77.5,41.5 C76.5,42.2 75.2,41.8 75.8,40.6 L80.5,33.2 L87.5,27.5 C89.2,26.2 91.2,25.2 92.5,25.5 Z"
+            android:fillColor="#FFFFFF" />
+
+        <!-- Right Wing (Upper Swept Wing) -->
+        <path
+            android:pathData="M84.5,31 L73,28 C72,27.8 72.4,26.8 73.5,27.2 L86.5,30 Z"
+            android:fillColor="#E0F2FE" />
+
+        <!-- Left Wing (Lower Wing) -->
+        <path
+            android:pathData="M83,34 L85.5,44 C85.8,45.2 84.6,45.6 83.8,44.5 L80,36 Z"
+            android:fillColor="#BAE6FD" />
+
+        <!-- Tail Fin (Vertical Stabilizer) -->
+        <path
+            android:pathData="M78,39 L74,43 C73.4,43.6 72.8,43.2 73.2,42.4 L76.5,38 Z"
+            android:fillColor="#FFFFFF" />
+
+        <!-- Airplane Jet Nose Tip -->
+        <path
+            android:pathData="M92.8,25.2 L94,24 L94.5,25.5 Z"
+            android:fillColor="#38BDF8" />
+
+        <!-- Dynamic Speed Sparkle on Airplane Nose -->
+        <path android:pathData="M94.5,23.5m-1,0a1,1 0 1,1 2,0a1,1 0 1,1 -2,0" android:fillColor="#FFFFFF" />
+
+    </group>
+
+</vector>
